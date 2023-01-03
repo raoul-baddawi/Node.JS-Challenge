@@ -93,10 +93,12 @@ function exit(){
 
 // Adding a new command functions
 
+// this function clears the console
 function clear(){
   console.clear();
 }
 
+// This function below lists all the possible commands
 function help(){
   console.log('These are the possible commands:\n hello\n quit\n exit\n help\n clear')
 }
