@@ -43,6 +43,12 @@ function onDataReceived(text) {
   else if(text === 'exit\n'){
     exit();
   }
+  else if(text === 'help\n'){
+    help();
+  }
+  else if(text === 'clear\n'){
+    clear();
+  }
   else{
     unknownCommand(text);
   }
@@ -83,6 +89,16 @@ function quit(){
 function exit(){
   console.log('Exiting now, goodbye!')
   process.exit();
+}
+
+// Adding a new command functions
+
+function clear(){
+  console.clear();
+}
+
+function help(){
+  console.log('These are the possible commands:\n hello\n quit\n exit\n help\n clear')
 }
 
 // The following line starts the application
