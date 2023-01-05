@@ -38,6 +38,8 @@ function onDataReceived(text) {
     const input = text.split(' ')[1];
     if (input) {
       hello(input);
+    } else {
+      hello();
     }
   }
   else if (text === 'quit') {
