@@ -62,6 +62,14 @@ function onDataReceived(text) {
   else if(text === 'list'){
     list();
   }
+  else if(text.startsWith('add')){
+    const input = text.split(' ')[1];
+    if (input) {
+      add(input);
+    } else {
+      err();
+    }
+  }
   else{
     unknownCommand(text);
   }
@@ -119,20 +127,21 @@ function help(){
 }
 
 // Global section
-const tasks = [
-  { taskNumber: 1, description: 'Task one' },
-  { taskNumber: 2, description: 'Task two' },
-  { taskNumber: 3, description: 'Task three' },
-  { taskNumber: 4, description: 'Task four' }
-];
+const tasks = [];
 
 // This function below lists all tasks
 function list(){
-  tasks.map(function(element){ 
-    console.log(element.taskNumber + "-" + element.description);
-   });
+  for (let i=+1;i<=tasks.length;i++){
+  console.log(i+"-"+tasks[i-1])
+  }
+}
+// These function are to add and remove tasks
+function add(input){
+  tasks.push(input)
 }
 
-
+function err(){
+  console.log('Error');
+}
 // The following line starts the application
 startApp("Raoul Baddawi")
