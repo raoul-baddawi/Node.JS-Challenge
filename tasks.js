@@ -129,7 +129,7 @@ const tasks = [
 // This function below lists all tasks
 function list(){
   tasks.map(function(element){ 
-    console.log(element.taskNumber);
+    console.log(element.taskNumber + "-" + element.description);
    });
 }
 
