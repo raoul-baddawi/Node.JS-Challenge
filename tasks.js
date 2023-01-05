@@ -48,8 +48,13 @@ function onDataReceived(text) {
   else if(text === 'exit'){
     exit();
   }
-  else if(text === 'help'){
-    help();
+  else if(text.startsWith('help')){
+    const input = text.split(' ')[1];
+    if (input) {
+      help(input);
+    } else {
+      help();
+    }
   }
   else if(text === 'clear'){
     clear();
