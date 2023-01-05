@@ -59,6 +59,9 @@ function onDataReceived(text) {
   else if(text === 'clear'){
     clear();
   }
+  else if(text === 'list'){
+    list();
+  }
   else{
     unknownCommand(text);
   }
@@ -113,6 +116,21 @@ function clear(){
 // This function below lists all the possible commands
 function help(){
   console.log('These are the possible commands:\n hello\n quit\n exit\n help\n clear')
+}
+
+// Global section
+const tasks = [
+  { taskNumber: 1, description: 'Task one' },
+  { taskNumber: 2, description: 'Task two' },
+  { taskNumber: 3, description: 'Task three' },
+  { taskNumber: 4, description: 'Task four' }
+];
+
+// This function below lists all tasks
+function list(){
+  tasks.map(function(element){ 
+    console.log(element.taskNumber);
+   });
 }
 
 
