@@ -1,4 +1,3 @@
-
 /**
  * Starts the application
  * This is the function that is run when the app starts
@@ -34,19 +33,23 @@ function startApp(name){
  * @returns {void}
  */
 function onDataReceived(text) {
-  if (text === 'quit\n') {
+  text = text.trim();
+  if(text.startsWith('hello')){
+    const input = text.split(' ')[1];
+    if (input) {
+      hello(input);
+    }
+  }
+  else if (text === 'quit') {
     quit();
   }
-  else if(text === 'hello\n'){
-    hello();
-  }
-  else if(text === 'exit\n'){
+  else if(text === 'exit'){
     exit();
   }
-  else if(text === 'help\n'){
+  else if(text === 'help'){
     help();
   }
-  else if(text === 'clear\n'){
+  else if(text === 'clear'){
     clear();
   }
   else{
@@ -76,7 +79,9 @@ function hello(){
   console.log('hello!')
 }
 
-
+function hello(input) {
+  console.log(`hello${input ? ` ${input}`:''}!`);
+}
 /**
  * Exits the application
  *
@@ -102,6 +107,7 @@ function clear(){
 function help(){
   console.log('These are the possible commands:\n hello\n quit\n exit\n help\n clear')
 }
+
 
 // The following line starts the application
 startApp("Raoul Baddawi")
