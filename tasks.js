@@ -70,6 +70,15 @@ function onDataReceived(text) {
       err();
     }
   }
+  else if(text === 'remove'){
+    rem();
+  }
+  else if(text === 'remove 1'){
+    remone();
+  }
+  else if(text === 'remove 2'){
+    remtwo();
+  }
   else{
     unknownCommand(text);
   }
@@ -143,5 +152,18 @@ function add(input){
 function err(){
   console.log('Error');
 }
+
+function rem(){
+  tasks.pop();
+}
+
+function remone(){
+  tasks.shift();
+}
+
+function remtwo(){
+  tasks.splice(1, 1);
+}
+
 // The following line starts the application
 startApp("Raoul Baddawi")
