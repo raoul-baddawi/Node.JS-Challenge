@@ -132,7 +132,7 @@ function clear(){
 
 // This function below lists all the possible commands
 function help(){
-  console.log('These are the possible commands:\n hello\n quit\n exit\n help\n clear')
+  console.log('These are the possible commands:\n hello\n quit\n exit\n help\n clear\n list\n add\n remove\n remove 1\n remove 2\n')
 }
 
 // Global section
