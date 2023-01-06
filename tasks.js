@@ -97,7 +97,6 @@ function onDataReceived(text) {
   }
 }
 
-
 /**
  * prints "unknown command"
  * This function is supposed to run when all other commands have failed
@@ -150,21 +149,22 @@ function help(){
 }
 
 // Global section
-const tasks = ["hello", "byebye"];
+const tasks = ["[✓]hello", "[]byebye"];
 
 // This function below lists all tasks
 function list(){
   for (let i=+1;i<=tasks.length;i++){
-  console.log(i+"-"+tasks[i-1])
+  console.log(i+"-"+slotMt[i-1]+tasks[i-1])
   }
 }
 // These function are to add, remove and edit tasks
 function add(input){
+  slotMt.push('[]')
   tasks.push(input)
 }
 
 function err(){
-  console.log('Error');
+  console.log('Error!');
 }
 
 function rem(value){
@@ -180,5 +180,7 @@ function rem(value){
 function edit(value, text){
   tasks[value -1]= text;
 }
+
+const slotMt = [];
 // The following line starts the application
 startApp("Raoul Baddawi")
