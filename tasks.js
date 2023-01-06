@@ -34,6 +34,8 @@ function startApp(name){
  */
 function onDataReceived(text) {
   text = text.trim();
+
+  // Hello command
   if(text.startsWith('hello')){
     const input = text.split(' ')[1];
     if (input) {
@@ -42,12 +44,16 @@ function onDataReceived(text) {
       hello();
     }
   }
+
+  // Exit and Quit command
   else if (text === 'quit') {
     quit();
   }
   else if(text === 'exit'){
     exit();
   }
+
+  // Help command
   else if(text.startsWith('help')){
     const input = text.split(' ')[1];
     if (input) {
@@ -56,12 +62,17 @@ function onDataReceived(text) {
       help();
     }
   }
+
+  // Clear command
   else if(text === 'clear'){
     clear();
   }
+
+  // List command
   else if(text === 'list'){
     list();
   }
+  // Add command
   else if(text.startsWith('add')){
     const input = text.split(' ')[1];
     if (input) {
@@ -70,13 +81,14 @@ function onDataReceived(text) {
       err();
     }
   }
+  // Remove command
   else if(text === 'remove\n'){
     rem(tasks.length)
   }
   else if(text.substring(0, 6) === 'remove'){
     rem(text.trim().substring(7));
   }
-  
+  // Edit command
   else if(text === 'edit'){
     err();
   }
@@ -92,6 +104,7 @@ function onDataReceived(text) {
       edit(tasks.length -1, text.substring(4));
     }
   }
+  //check/uncheck commands
   else if (text === "check") {   
     err();
   } 
@@ -104,6 +117,8 @@ function onDataReceived(text) {
   else if (text.substring(0, 7) === "uncheck") {
     unCheck(text.trim().substring(8));
   } 
+
+  // For unknown commands
   else{
     unknownCommand(text);
   }
@@ -140,7 +155,7 @@ function hello(input) {
  */
 
 // Adding a new command functions
-
+// Quit and exit functions
 function quit(){
   console.log('Quitting now, goodbye!')
   process.exit();
@@ -157,7 +172,7 @@ function clear(){
 
 // This function below lists all the possible commands
 function help(){
-  console.log('These are the possible commands:\n hello\n quit\n exit\n help\n clear\n list\n add\n remove\n remove 1\n remove 2\n')
+  console.log('These are the possible commands:\n hello\n quit\n exit\n help\n clear\n list\n add\n remove\n remove 1\n remove 2\n check\n uncheck\n')
 }
 
 // Global section
@@ -170,15 +185,13 @@ function list(){
   }
 }
 // These function are to add, remove and edit tasks
+// Add
 function add(input){
   slotMt.push('[]')
   tasks.push(input)
 }
 
-function err(){
-  console.log('Error!');
-}
-
+// Remove
 function rem(value){
   if(value > tasks.length || value == 0){
     err()
@@ -188,27 +201,36 @@ function rem(value){
   }
   
 }
-
+// Edit
 function edit(value, text){
   tasks[value -1]= text;
 }
 
+// everything below this line is related to check/uncheck tasks
 const slotMt = [];
 for (let i = 0; i < tasks.length; i++) {
   slotMt[i] = "[]";
 }
 
+// Check
 function check(index) {
   if(index > tasks.length || index == 0){
     err()
   }
   slotMt[Number(index-1)] = slotMt[Number(index-1)].replace("[]", "[✓]");
 }
+
+// Uncheck
 function unCheck(index) {
   if(index > tasks.length || index == 0){
     err()
   }
   slotMt[Number(index-1)] = slotMt[Number(index-1)].replace("[✓]", "[]");
+}
+
+// Error function
+function err(){
+  console.log('Error!');
 }
 
 // The following line starts the application
