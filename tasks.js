@@ -22,9 +22,9 @@ function startApp(name){
  * This function receives the input sent by the user.
  * 
  * For example, if the user entered 
- * ```
+ * 
  * node tasks.js batata
- * ```
+ * 
  * 
  * The text received would be "batata"
  * This function  then directs to other functions
@@ -92,6 +92,18 @@ function onDataReceived(text) {
       edit(tasks.length -1, text.substring(4));
     }
   }
+  else if (text === "check") {   
+    err();
+  } 
+  else if (text.substring(0, 5) === "check") {
+    check(text.trim().substring(6));
+  }
+  else if (text === "uncheck") {
+    err();
+  } 
+  else if (text.substring(0, 7) === "uncheck") {
+    unCheck(text.trim().substring(8));
+  } 
   else{
     unknownCommand(text);
   }
@@ -149,7 +161,7 @@ function help(){
 }
 
 // Global section
-const tasks = ["[✓]hello", "[]byebye"];
+const tasks = ["hello", "byebye"];
 
 // This function below lists all tasks
 function list(){
@@ -182,5 +194,22 @@ function edit(value, text){
 }
 
 const slotMt = [];
+for (let i = 0; i < tasks.length; i++) {
+  slotMt[i] = "[]";
+}
+
+function check(index) {
+  if(index > tasks.length || index == 0){
+    err()
+  }
+  slotMt[Number(index-1)] = slotMt[Number(index-1)].replace("[]", "[✓]");
+}
+function unCheck(index) {
+  if(index > tasks.length || index == 0){
+    err()
+  }
+  slotMt[Number(index-1)] = slotMt[Number(index-1)].replace("[✓]", "[]");
+}
+
 // The following line starts the application
 startApp("Raoul Baddawi")
