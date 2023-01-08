@@ -1,3 +1,6 @@
+var fs = require("fs");
+const tasks = ["hello", "byebye"];
+
 /**
  * Starts the application
  * This is the function that is run when the app starts
@@ -15,7 +18,6 @@ function startApp(name){
   console.log(`Welcome to ${name}'s application!`)
   console.log("--------------------")
 }
-
 
 /**
  * Decides what to do depending on the data that was received
@@ -156,10 +158,40 @@ function hello(input) {
 
 // Adding a new command functions
 // Quit and exit functions
-function quit(){
-  console.log('Quitting now, goodbye!')
+function writeToJson(data, fileName){
+  fs.writeFile(fileName, JSON.stringify(data), (err) => {
+    if (err) console.log(err);
+    console.log("Successfully Written to File.");
+  });
+}
+
+
+let saveFile;
+if (process.argv[2] == null) {
+  saveFile = "database.json";
+} else {
+  saveFile = process.argv[2];
+}
+
+try {
+  fs.readFileSync(saveFile);
+}
+catch (e) {
+  console.log(`Everything you write will be saved on quit to the specified json file!`)
+}
+function quit() {
+  let data = JSON.stringify(tasks);
+  try {
+    fs.writeFileSync(saveFile, data);
+    console.log(`Saving changes...`);
+  } catch (error) {
+    console.error(error);
+  }
+
+  console.log("Quitting now, goodbye!");
   process.exit();
 }
+
 function exit(){
   console.log('Exiting now, goodbye!')
   process.exit();
@@ -175,14 +207,15 @@ function help(){
   console.log('These are the possible commands:\n hello\n quit\n exit\n help\n clear\n list\n add\n remove\n remove 1\n remove 2\n check\n uncheck\n')
 }
 
-// Global section
-const tasks = ["hello", "byebye"];
-
 // This function below lists all tasks
 function list(){
   for (let i=+1;i<=tasks.length;i++){
   console.log(i+"-"+slotMt[i-1]+tasks[i-1])
   }
+
+  fs.readFile("database.json", function(err, buf) {
+    console.log(buf.toString());
+  });
 }
 // These function are to add, remove and edit tasks
 // Add
