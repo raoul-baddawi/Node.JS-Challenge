@@ -70,14 +70,27 @@ function onDataReceived(text) {
       err();
     }
   }
-  else if(text === 'remove'){
-    rem();
+  else if(text === 'remove\n'){
+    rem(tasks.length)
   }
-  else if(text === 'remove 1'){
-    remone();
+  else if(text.substring(0, 6) === 'remove'){
+    rem(text.trim().substring(7));
   }
-  else if(text === 'remove 2'){
-    remtwo();
+  
+  else if(text === 'edit'){
+    err();
+  }
+  else if(text.substring(0, 4) === "edit"){
+    text.replace("\n","");
+    const input = text.split(" ");
+    if(!isNaN(input[1])){
+      let one = input.slice(2).join(" ");
+      edit(input[1], one);
+    }
+    else{
+      text.replace("\n", "");
+      edit(tasks.length -1, text.substring(4));
+    }
   }
   else{
     unknownCommand(text);
@@ -114,6 +127,9 @@ function hello(input) {
  *
  * @returns {void}
  */
+
+// Adding a new command functions
+
 function quit(){
   console.log('Quitting now, goodbye!')
   process.exit();
@@ -122,8 +138,6 @@ function exit(){
   console.log('Exiting now, goodbye!')
   process.exit();
 }
-
-// Adding a new command functions
 
 // this function clears the console
 function clear(){
@@ -136,7 +150,7 @@ function help(){
 }
 
 // Global section
-const tasks = [];
+const tasks = ["hello", "byebye"];
 
 // This function below lists all tasks
 function list(){
@@ -144,7 +158,7 @@ function list(){
   console.log(i+"-"+tasks[i-1])
   }
 }
-// These function are to add and remove tasks
+// These function are to add, remove and edit tasks
 function add(input){
   tasks.push(input)
 }
@@ -153,17 +167,18 @@ function err(){
   console.log('Error');
 }
 
-function rem(){
-  tasks.pop();
+function rem(value){
+  if(value > tasks.length || value == 0){
+    err()
+  }
+  else{
+    tasks.splice(value -1, 1);
+  }
+  
 }
 
-function remone(){
-  tasks.shift();
+function edit(value, text){
+  tasks[value -1]= text;
 }
-
-function remtwo(){
-  tasks.splice(1, 1);
-}
-
 // The following line starts the application
 startApp("Raoul Baddawi")
