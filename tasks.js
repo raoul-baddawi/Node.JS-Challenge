@@ -59,6 +59,26 @@ function onDataReceived(text) {
   else if(text === 'clear'){
     clear();
   }
+  else if(text === 'list'){
+    list();
+  }
+  else if(text.startsWith('add')){
+    const input = text.split(' ')[1];
+    if (input) {
+      add(input);
+    } else {
+      err();
+    }
+  }
+  else if(text === 'remove'){
+    rem();
+  }
+  else if(text === 'remove 1'){
+    remone();
+  }
+  else if(text === 'remove 2'){
+    remtwo();
+  }
   else{
     unknownCommand(text);
   }
@@ -112,9 +132,38 @@ function clear(){
 
 // This function below lists all the possible commands
 function help(){
-  console.log('These are the possible commands:\n hello\n quit\n exit\n help\n clear')
+  console.log('These are the possible commands:\n hello\n quit\n exit\n help\n clear\n list\n add\n remove\n remove 1\n remove 2\n')
 }
 
+// Global section
+const tasks = [];
+
+// This function below lists all tasks
+function list(){
+  for (let i=+1;i<=tasks.length;i++){
+  console.log(i+"-"+tasks[i-1])
+  }
+}
+// These function are to add and remove tasks
+function add(input){
+  tasks.push(input)
+}
+
+function err(){
+  console.log('Error');
+}
+
+function rem(){
+  tasks.pop();
+}
+
+function remone(){
+  tasks.shift();
+}
+
+function remtwo(){
+  tasks.splice(1, 1);
+}
 
 // The following line starts the application
 startApp("Raoul Baddawi")
